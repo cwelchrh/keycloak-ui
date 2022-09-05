@@ -1,4 +1,4 @@
-import { useRouteMatch } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Link, useNavigate } from "react-router-dom-v5-compat";
 import { useTranslation } from "react-i18next";
 import { FormProvider, useForm } from "react-hook-form";
@@ -28,9 +28,8 @@ type DiscoveryIdentity = IdentityProviderRepresentation & {
 export default function AddOpenIdConnect() {
   const { t } = useTranslation("identity-providers");
   const navigate = useNavigate();
-  const { url } = useRouteMatch();
-  const isKeycloak = url.endsWith("keycloak-oidc/add");
-  const id = `${isKeycloak ? "keycloak-" : ""}oidc`;
+  const { id } = useParams<{ id: string }>();
+  const isKeycloak = id === "keycloak-oidc";
 
   const form = useForm<IdentityProviderRepresentation>({
     defaultValues: { alias: id },
