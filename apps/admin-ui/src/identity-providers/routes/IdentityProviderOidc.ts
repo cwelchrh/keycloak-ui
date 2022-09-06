@@ -3,10 +3,12 @@ import type { Path } from "react-router-dom-v5-compat";
 import { generatePath } from "react-router-dom-v5-compat";
 import type { RouteDef } from "../../route-config";
 
-export type IdentityProviderOidcParams = { realm: string };
+type OidcType = "keycloak-oidc" | "oidc";
+
+export type IdentityProviderOidcParams = { id: OidcType; realm: string };
 
 export const IdentityProviderOidcRoute: RouteDef = {
-  path: "/:realm/identity-providers/oidc/add",
+  path: "/:realm/identity-providers/:id/add",
   component: lazy(() => import("../add/AddOpenIdConnect")),
   breadcrumb: (t) => t("identity-providers:addOpenIdProvider"),
   access: "manage-identity-providers",
